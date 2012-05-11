@@ -1,8 +1,9 @@
 // JavaScript Document
 (function($) {
     $.extend({
-    	singleLogin: function(role, options){
-			var options = options||"undefined";
+    	singleLogin: function(role, options, userid){
+			var options = options||"undefined",
+				userid = userid||'';
     			switch(role){
 					case "helper":
 						//get options from query string
@@ -11,13 +12,14 @@
 						switch (window.location.hash){
 							case "#set":
 								document.domain = $.singleLogin.options.root;
-								$.cookie($.singleLogin.options.cookie,'true',{expires:$.singleLogin.options.life,path:'/'});
+								$.cookie($.singleLogin.options.cookie,decodeURI($.getQueryString('userid')),{expires:$.singleLogin.options.life,path:'/'});
 								return null;
 								break;
 							case "#check":
 								document.domain = $.singleLogin.options.root;
-								if($.cookie($.singleLogin.options.cookie)){
+								if($.cookie($.singleLogin.options.cookie) != null){
 									window.parent.$.singleLogin.loggedin=true;
+									window.parent.$.singleLogin.userid = $.cookie($.singleLogin.options.cookie);
 									console.log();
 									return null;
 								} else {
@@ -40,7 +42,8 @@
 						});
 						break;
 					case "set":
-						build('set',options);
+						build('set',options,userid);
+						
 						$('#singleLogin_frame').load(function(){
 							$.singleLogin.options.set();
 							return null;
@@ -65,13 +68,13 @@
 							return null;
 						});
 				}
-			function build(type,options){
+			function build(type,options,userid){
 				//check to see if singleLogin has already been initated if not build options 
 						if(typeof $.singleLogin.options === "undefined"){
 							setOptions(options);
 							document.domain = $.singleLogin.options.root;
 						}
-						$('body').append('<iframe id="singleLogin_frame" src="http://'+$.singleLogin.options.rootport+$.singleLogin.options.helper+'?options='+encodeURI(JSON.stringify($.singleLogin.options))+'#'+type+'" style="display:none;"></iframe>');
+						$('body').append('<iframe id="singleLogin_frame" src="http://'+$.singleLogin.options.rootport+$.singleLogin.options.helper+'?options='+encodeURI(JSON.stringify($.singleLogin.options))+((typeof userid !== "undefined")?('&userid='+userid):(''))+'#'+type+'" style="display:none;"></iframe>');
 			}
 			//merge user options with defaults and construct root
 			function setOptions(options){

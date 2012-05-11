@@ -4,29 +4,34 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Untitled Document</title>
 <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-<script src="http://www.uglymongrel.com/singlelogin/jquery.singleLogin.js"></script>
+<script src="http://www.uglymongrel.com/singleLogin/jquery.singleLogin.js"></script>
 <script>
 $(function(){
+	//initating singleLogin by checking for current login
+	//pass role (check/set/logout) and options object
+	//this is exactly the same as you would do on an individual app page
 	$.singleLogin('check',{
 			basePort:'8080',
-			loginPage:'/singlelogin/index.html',
-			helper:'/singlelogin/helper.html',
+			loginPage:'/singleLogin/index.html',
+			helper:'/singleLogin/helper.html',
 			success:function(){
-				alert('logged in');
+				alert($.singleLogin.userid);
 			},
 			set:function(){
 				alert('now logged in');
 			}
-			
 	});
+	//Bind to click event on login button to set login
 	$('#login').click(function(){
-		$.singleLogin('set');					   
+		//no options passed on subsequent calls options stored from first call
+		$.singleLogin('set','',$('#id').val());					   
 	});
 });
 </script>
 </head>
 
 <body>
+userid <input type="text" name="id" id="id" /><br/>
 <button id="login">Login</button><button class="logout">Logout</button><br/>
 Domain links<a href="http://app1.uglymongrel.com">App 1</a> <a href="http://app2.uglymongrel.com">App 2</a>
 port lnks <a href="http://108.60.159.202:8081">App 1</a> <a href="http://108.60.159.202:8082">App 2</a>
