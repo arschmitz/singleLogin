@@ -1,0 +1,34 @@
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script src="http://www.uglymongrel.com/singlelogin/jquery.singleLogin.js"></script>
+<script>
+$(function(){
+	$.singleLogin('check',{
+			basePort:'8080',
+			loginPage:'/singlelogin/index.html',
+			helper:'/singlelogin/helper.html',
+			success:function(){
+				alert('logged in');
+			},
+			set:function(){
+				alert('now logged in');
+			}
+			
+	});
+	$('#login').click(function(){
+		$.singleLogin('set');					   
+	});
+});
+</script>
+</head>
+
+<body>
+<button id="login">Login</button><button class="logout">Logout</button><br/>
+Domain links<a href="http://app1.uglymongrel.com">App 1</a> <a href="http://app2.uglymongrel.com">App 2</a>
+port lnks <a href="http://108.60.159.202:8081">App 1</a> <a href="http://108.60.159.202:8082">App 2</a>
+</body>
+</html>
