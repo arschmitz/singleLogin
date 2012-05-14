@@ -89,15 +89,17 @@
     					return null;
     				},
     				failure:function(){
-						if('http://'+$.singleLogin.options.rootport+$.singleLogin.options.loginPage != window.location){
-    						window.location = 'http://'+$.singleLogin.options.rootport+$.singleLogin.options.loginPage;
+						if($.singleLogin.options.loginPage != window.location){
+    						window.location = $.singleLogin.options.loginPage;
 						}
     				},
 					set:function(){
 						return null;
 					},
 					logout:function(){
-						window.location = 'http://'+$.singleLogin.options.rootport+$.singleLogin.options.loginPage;
+						if($.singleLogin.options.loginPage != window.location){
+    						window.location = $.singleLogin.options.loginPage;
+						}
 					},
 					cookie:'singleLogin',
 					forcePort:''
