@@ -11,9 +11,7 @@ $(function(){
 	//pass role (check/set/logout) and options object
 	//this is exactly the same as you would do on an individual app page
 	$.singleLogin('check',{
-			basePort:'8080',
-			loginPage:'/singleLogin/index.html',
-			helper:'/singleLogin/helper.html',
+			loginPage:'http://www.uglymongrel.com/singleLogin/index.html',
 			success:function(){
 				alert($.singleLogin.userid);
 			},
