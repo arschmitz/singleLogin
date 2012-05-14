@@ -2,7 +2,7 @@
 (function($) {
     $.extend({
     	singleLogin: function(role, options, userid){
-			var options = options||null,
+				var options = options||null,
 				userid = userid||null;
     			switch(role){
 					case "logout":
@@ -36,6 +36,9 @@
 				}
 			//merge user options with defaults and construct root
 			function setOptions(options){
+				if(typeof $.singleLogin.options !== "undefined"){
+					return false;
+				}
     			var defaults = {
     				loginPage:'login.html',
     				logoutClass:'.logout',
