@@ -32,6 +32,7 @@
 							return null;
 						});
 						return null;
+						break;
 				}
 			//merge user options with defaults and construct root
 			function setOptions(options){
