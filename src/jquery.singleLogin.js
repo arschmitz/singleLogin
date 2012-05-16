@@ -6,6 +6,7 @@
 				userid = userid||null;
     			switch(role){
 					case "init":
+					console.log('init');
 						var defaults = {
 							loginPage:'login.html',
 							logoutClass:'.logout',
@@ -27,19 +28,22 @@
 								}
 							},
 							cookie:'singleLogin',
-							forcePort:''
+							forcePort:'',
+							root: calcRoot()
 						};
 						options = $.extend({},defaults,options);
 						$.singleLogin.options=options;
-						var domainTest = /[a-zA-Z]/;
-						var root = "";
-						if(domainTest.test(document.domain)){
-							root = document.domain.split('.');
-							root = '.'+root[root.length-2]+'.'+root[root.length-1];
-						} else {
-							root = window.location.hostname;
-						}
-						$.singleLogin.options.root = root;
+						function calcRoot(){
+								var domainTest = /[a-zA-Z]/;
+								var root = "";
+								if(domainTest.test(document.domain)){
+									root = document.domain.split('.');
+									root = '.'+root[root.length-2]+'.'+root[root.length-1];
+								} else {
+									root = window.location.hostname;
+								}
+								return root;
+							}
 						return true;
 						break;
 					case "logout":
