@@ -55,12 +55,10 @@ var cookie = function(key, value, options) {
 // Define a local copy of singleLogin
 var singleLogin = function(role, options) {
 //begin re write
-console.log('singleLogin');
 				var options = options||null,
 				userid = userid||null;
     			switch(role){
 					case "init":
-					console.log('init');
 						var defaults = {
 							loginPage:'login.html',
 							logoutClass:'.logout',
@@ -95,23 +93,19 @@ console.log('singleLogin');
 							root = window.location.hostname;
 						}
 						singleLogin.options.root = root;
-						console.log(singleLogin.options.root);
 						return true;
 						break;
 					case "logout":
-					console.log('logout');
 						cookie(singleLogin.options.cookie,null,{expires:singleLogin.options.life,path:'/',domain:singleLogin.options.root});
 						singleLogin.options.logout();
 						return null;
 						break;
 					case "set":
-					console.log('set');
 						cookie(singleLogin.options.cookie,options,{expires:singleLogin.options.life,path:'/',domain:singleLogin.options.root});
 						singleLogin.options.set();
 						return null;
 						break;
 					case "check":
-					console.log('check');
 						if(typeof options !== "undefined"){
 							singleLogin('init',options);
 							
