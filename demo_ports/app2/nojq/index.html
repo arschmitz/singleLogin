@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>App 2</title>
+<script src="http://www.uglymongrel.com/singleLogin/src/singleLogin.js"></script>
+<script>
+	singleLogin('check',{
+			loginPage:'http://108.60.159.202:8080/singleLogin/demo_ports/nojq/index.html',
+			success:function(){
+				alert(singleLogin.userid);
+			},
+			set:function(){
+				alert('now logged in');
+			}
+	});
+</script>
+</head>
+<body>
+App 2
+<button class="logout"  onclick="singleLogin('logout');">Logout</button>
+links <a href="http://108.60.159.202:8080/singleLogin/demo_ports/nojq/">login page</a> <a href="http://108.60.159.202:8081/nojq/">App 1</a>
+<iframe src="app2.txt" width="90%" height="500"></iframe>
+</body>
+</html>

@@ -1,25 +1,67 @@
 // JavaScript Document
 (function($) {
     $.extend({
-    	singleLogin: function(role, options, userid){
+    	singleLogin: function(role, options){
 				var options = options||null,
 				userid = userid||null;
     			switch(role){
+					case "init":
+					console.log('init');
+						var defaults = {
+							loginPage:'login.html',
+							logoutClass:'.logout',
+							life:7,
+							success:function(){
+								return null;
+							},
+							failure:function(){
+								if($.singleLogin.options.loginPage != window.location){
+									window.location = $.singleLogin.options.loginPage;
+								}
+							},
+							set:function(){
+								return null;
+							},
+							logout:function(){
+								if($.singleLogin.options.loginPage != window.location){
+									window.location = $.singleLogin.options.loginPage;
+								}
+							},
+							cookie:'singleLogin',
+							forcePort:''
+						};
+						options = $.extend({},defaults,options);
+						$.singleLogin.options=options;
+						var domainTest = /[a-zA-Z]/;
+						var root = "";
+						if(domainTest.test(document.domain)){
+							root = document.domain.split('.');
+							root = '.'+root[root.length-2]+'.'+root[root.length-1];
+						} else {
+							root = window.location.hostname;
+						}
+						$.singleLogin.options.root = root;
+						console.log($.singleLogin.options.root);
+						return true;
+						break;
 					case "logout":
-						setOptions(options);
+					console.log('logout');
 						$.cookie($.singleLogin.options.cookie,null,{expires:$.singleLogin.options.life,path:'/',domain:$.singleLogin.options.root});
 						$.singleLogin.options.logout();
 						return null;
 						break;
 					case "set":
-						setOptions(options);
-						$.cookie($.singleLogin.options.cookie,userid,{expires:$.singleLogin.options.life,path:'/',domain:$.singleLogin.options.root});
+					console.log('set');
+						$.cookie($.singleLogin.options.cookie,options,{expires:$.singleLogin.options.life,path:'/',domain:$.singleLogin.options.root});
 						$.singleLogin.options.set();
 						return null;
 						break;
 					case "check":
-						setOptions(options);
-						$.cookie($.singleLogin.options.cookie)
+					console.log('check');
+						if(typeof options !== "undefined"){
+							$.singleLogin('init',options);
+							
+						}
 						if($.cookie($.singleLogin.options.cookie) != null){
 							$.singleLogin.userid = $.cookie($.singleLogin.options.cookie);
 							$.singleLogin.options.success();
@@ -31,50 +73,9 @@
 							$.singleLogin('logout');
 							return null;
 						});
-						return null;
+						return $.singleLogin.userid;
 						break;
 				}
-			//merge user options with defaults and construct root
-			function setOptions(options){
-				if(typeof $.singleLogin.options !== "undefined"){
-					return false;
-				}
-    			var defaults = {
-    				loginPage:'login.html',
-    				logoutClass:'.logout',
-					life:7,
-    				success:function(){
-    					return null;
-    				},
-    				failure:function(){
-						if($.singleLogin.options.loginPage != window.location){
-    						window.location = $.singleLogin.options.loginPage;
-						}
-    				},
-					set:function(){
-						return null;
-					},
-					logout:function(){
-						if($.singleLogin.options.loginPage != window.location){
-    						window.location = $.singleLogin.options.loginPage;
-						}
-					},
-					cookie:'singleLogin',
-					forcePort:''
-    			};
-    			options = $.extend({},defaults,options);
-    			$.singleLogin.options=options;
-				var domainTest = /[a-zA-Z]/;
-				var root = "";
-				if(domainTest.test(document.domain)){
-					root = document.domain.split('.');
-					root = '.'+root[root.length-2]+'.'+root[root.length-1];
-				} else {
-					root = window.location.hostname;
-				}
-				$.singleLogin.options.root = root;
-				return true;
-			}
     	},
 		cookie: function(key, value, options) {
         // key and at least value given, set cookie...

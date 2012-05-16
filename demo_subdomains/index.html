@@ -1,0 +1,36 @@
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script src="http://www.uglymongrel.com/singleLogin/src/jquery.singleLogin.js"></script>
+<script>
+$(function(){
+	//initating singleLogin by checking for current login
+	//pass role (check/set/logout) and options object
+	//this is exactly the same as you would do on an individual app page
+	$.singleLogin('check',{
+			loginPage:'http://www.uglymongrel.com/singleLogin/demo_subdomains/index.html',
+			success:function(){
+				alert($.singleLogin.userid);
+			},
+			set:function(){
+				alert('now logged in');
+			}
+	});
+	//Bind to click event on login button to set login
+	$('#login').click(function(){
+		//no options passed on subsequent calls options stored from first call
+		$.singleLogin('set',$('#id').val());					   
+	});
+});
+</script>
+</head>
+<body>
+userid <input type="text" name="id" id="id" /><br/>
+<button id="login">Login</button><button class="logout">Logout</button><br/>
+Domain links<a href="http://app1.uglymongrel.com">App 1</a> <a href="http://app2.uglymongrel.com">App 2</a>
+<iframe src="login.txt" width="90%" height="500"></iframe>
+</body>
+</html>

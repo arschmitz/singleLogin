@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>App 2</title>
+<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script src="http://www.uglymongrel.com/singleLogin/src/jquery.singleLogin.js"></script>
+<script>
+$(function(){
+	$.singleLogin('check',{
+			loginPage:'http://www.uglymongrel.com/singleLogin/demo_subdomains/index.html',
+			success:function(){
+				alert($.singleLogin.userid);
+			},
+			set:function(){
+				alert('now logged in');
+			}
+	});
+});
+</script>
+</head>
+<body>
+App 1
+<button class="logout">Logout</button>
+links <a href="http://www.uglymongrel.com/singleLogin/demo_subdomains/">login page</a> <a href="http://app1.uglymongrel.com">App 1</a>
+<iframe src="app2.txt" width="90%" height="500"></iframe>
+</body>
+</html>
